@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    
+    <p><strong>Total Products:</strong> {{ total_products }}</p>
+    <p><strong>Total Sales:</strong> {{ total_sales }}</p>
+    <p><strong>Total Quantity:</strong> {{ total_quantity }}</p>
+    
+    <h2>Top Selling Products</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Total Sales</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in top_selling_products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.sales }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <a href="{{ url_for('view_products') }}">View All Products</a>
+        <a href="{{ url_for('add_product') }}">Add New Product</a>
+        <a href="{{ url_for('sales_report') }}">View Sales Report</a>
+    </div>
+</body>
+</html>

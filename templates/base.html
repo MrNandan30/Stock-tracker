@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Include the Chatbot's CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chatbot.css') }}">
+</head>
+<body class="light-mode">
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Inventory</h2>
+            <ul>
+                <li class="{{ 'active' if active_page == 'dashboard' else '' }}">
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                </li>
+                <li class="{{ 'active' if active_page == 'view-products' else '' }}">
+                    <a href="{{ url_for('view_products') }}">View Products</a>
+                </li>
+                <li class="{{ 'active' if active_page == 'add-products' else '' }}">
+                    <a href="{{ url_for('add_products') }}">Add Products</a>
+                </li>
+                <li class="{{ 'active' if active_page == 'categories' else '' }}">
+                    <a href="{{ url_for('categories') }}">Categories</a>
+                </li>
+                <li class="{{ 'active' if active_page == 'high-selling' else '' }}">
+                    <a href="{{ url_for('high_selling') }}">High Selling</a>
+                </li>
+                <li class="{{ 'active' if active_page == 'low-selling' else '' }}">
+                    <a href="{{ url_for('low_selling') }}">Low Selling</a>
+                </li>
+                
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Display logout if user is logged in -->
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+
+            {% block content %}
+            <!-- Content specific to each page will go here -->
+            {% endblock %}
+        </div>
+    </div>
+     
+    
+    <!-- Dark Mode Toggle Button -->
+<!-- Dark Mode Toggle Button -->
+<div class="dark-mode-toggle">
+    <label class="switch">
+        <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+        <span class="slider round"></span>
+    </label>
+    <span id="toggleLabel">Dark Mode</span>
+</div>
+
+        
+
+
+    <script src="{{ url_for('static', filename='js/darkmode.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+    
+    <footer>
+        <p>&copy; 2024 My Web Application</p>
+    </footer>
+
+
+
+
+</body>
+</html>

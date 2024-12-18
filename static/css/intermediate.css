@@ -1,0 +1,335 @@
+body {
+  margin: 0;
+  overflow: hidden; /* Ensures the background covers the full screen */
+  font-family: Arial, sans-serif;
+  background-color: #121212; /* Dark background for better contrast */
+}
+
+canvas {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Ensures Three.js runs behind other content */
+}
+
+.container {
+  position: relative;
+  z-index: 1; /* Keeps content above the Three.js canvas */
+  background-color: rgba(255, 255, 255, 0.9); /* Slight opacity for transparency */
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1000px;
+  margin: 20px auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adds subtle shadow */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 8px;
+  font-size: 16px;
+  width: 300px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+.search-bar button {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #5C6BC0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #3f4fa2;
+}
+
+.profile-icon {
+  position: relative;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.profile-menu.hidden {
+  display: none;
+}
+
+.profile-menu.show {
+  display: block;
+}
+
+.profile-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-menu li {
+  margin: 10px 0;
+}
+
+.profile-menu a {
+  color: #333;
+  text-decoration: none;
+}
+
+.profile-menu a:hover {
+  color: #5C6BC0;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+h3 {
+  margin-top: 30px;
+  font-size: 24px;
+  color: #333;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.product {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product:hover {
+  transform: scale(1.05);
+}
+
+.product h4 {
+  font-size: 20px;
+  color: #333;
+}
+
+.product p {
+  color: #666;
+  font-size: 16px;
+}
+
+button {
+  background-color: #5C6BC0;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3f4fa2;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+ul li {
+  margin: 10px 20px;
+}
+
+ul li a {
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+ul li a:hover {
+  color: #5C6BC0;
+}
+
+#chatbox {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#user-query {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+}
+
+#send-query {
+  padding: 10px 20px;
+  background-color: #5C6BC0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#send-query:hover {
+  background-color: #3f4fa2;
+}
+
+#chat-history {
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#chat-history p {
+  font-size: 16px;
+  color: #333;
+}
+
+#chat-history p strong {
+  color: #5C6BC0;
+}
+.profile-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 2; /* Ensure it's above other elements */
+}
+
+.profile-menu.show {
+  display: block;
+}
+/* Chatbot button */
+#chatbot-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #0d6efd; /* Retains the original color */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#chatbot-btn:hover {
+  background-color: #0056b3; /* Retains the original color for hover effect */
+}
+
+/* Chatbot window */
+#chatbot-window {
+  position: fixed;
+  bottom: 100px; /* Adjust the position to appear above the button */
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header of chatbot */
+#chatbot-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333; /* Consistent header color */
+}
+
+/* Chatbot messages */
+#chatbot-messages {
+  overflow-y: scroll;
+  height: 70%;
+  margin-bottom: 10px;
+}
+
+/* Chat input field */
+#chat-input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Send button */
+#send-btn {
+  background-color: #0d6efd; /* Keeps the same color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#send-btn:hover {
+  background-color: #0056b3; /* Keeps the same hover color */
+}
+
+/* Chatbot messages */
+#chatbot-messages {
+    overflow-y: scroll;
+    height: 70%;
+    margin-bottom: 10px;
+}
+
+/* Chat input field */
+#chat-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Send button */
+#send-btn {
+    background-color: #0d6efd; /* Keeps the same color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#send-btn:hover {
+    background-color: #0056b3; /* Keeps the same hover color */
+}

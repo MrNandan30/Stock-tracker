@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/intermediate.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-dyBjl41epZZjfqQuw+IFR08a/UipG9a/B70WzJWxHJoBzj8+8Wj/nYjTAl7x9zB2" crossorigin="anonymous">
+    <style>
+        /* Existing styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://coolbackgrounds.io/images/backgrounds/black/black-unsplash-71f6eaaa.jpg'); /* Background Image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+            overflow-y: auto;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 90%;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            padding: 10px;
+            border-radius: 25px;
+            border: none;
+            background-color: #ff9900;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #e68900;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        .product h4 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .product p {
+            margin: 5px 0;
+        }
+
+        .buy-button {
+            padding: 10px 20px;
+            background-color: #ff9900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .buy-button:hover {
+            background-color: #e68900;
+        }
+
+        /* Profile Menu Styles */
+        .profile-icon {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #0066cc;
+            color: white;
+            border-radius: 25px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #profile-menu {
+            display: none;  /* Initially hidden */
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            z-index: 1000;
+        }
+
+        #profile-menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #profile-menu ul li {
+            border-bottom: 1px solid #ddd;
+        }
+
+        #profile-menu ul li:last-child {
+            border-bottom: none;
+        }
+
+        #profile-menu ul li a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        #profile-menu ul li a:hover {
+            background-color: #f2f2f2;
+        }
+
+        /* Keep chatbot styling as is */
+        #chatbot-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 40px;
+            background-color: #0066cc; /* Blue color */
+            color: white;
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            z-index: 9999;
+            text-align: center;
+        }
+
+        #chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 300px;
+            height: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+        }
+
+        #chatbot-header {
+            background-color: #0066cc;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            cursor: pointer;
+        }
+
+        #chatbot-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #chatbot-input-container {
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        #chatbot-input {
+            width: 80%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+        }
+
+        #chatbot-send {
+            padding: 8px 15px;
+            margin-left: 10px;
+            background-color: #0066cc;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #chatbot-send:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Search Bar and Profile Icon -->
+        <header class="header">
+            <form method="POST" action="{{ url_for('welcome') }}" class="search-bar">
+                <input type="text" name="search_query" placeholder="Search Products..." value="{{ search_query }}" />
+                <button type="submit">Search</button>
+            </form>
+            <div class="profile-icon">
+                <span id="profile-menu-toggle">Profile</span>
+            </div>
+            
+        
+
+        <div id="profile-menu">
+            <ul>
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('security') }}">Security</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+        </header>
+        {% if search_results %}
+        <h3>Search Results for "{{ search_query }}":</h3>
+        <div class="search-container">
+           
+        </div>
+        <div class="products" id="product-list">
+            {% for product in search_results %}
+                <div class="product" data-name="{{ product.name | lower }}" data-brand="{{ product.brand | lower }}" data-category="{{ product.category | lower }}">
+                    <h4>{{ product.name }} ({{ product.brand }})</h4>
+                    <p><strong>Category:</strong> {{ product.category }}</p>
+                    <p><strong>Description:</strong> {{ product.description }}</p>
+                    <p><strong>Price:</strong> ${{ product.price }}</p>
+                    <p><strong>Sales:</strong> {{ product.sales }} units</p>
+                    <p><strong>Quantity in Stock:</strong> {{ product.quantity }}</p>
+                    <a href="https://www.amazon.com/s?k={{ product.name }}&ref=nb_sb_noss" target="_blank">
+                        <button class="buy-button">Buy on Amazon</button>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% elif search_query %}
+        <p>No products found matching your search query.</p>
+    {% endif %}
+
+        <h3>Fast Sellers</h3>
+        <div class="products">
+            <div class="product">
+                <h4>Apple AirPods Pro</h4>
+                <p><strong>Price:</strong> $249.99</p>
+                <p><strong>Sales:</strong> 600 units</p>
+                <a href="https://www.amazon.in/Apple-MWP22HN-A-AirPods-Pro/dp/B07ZRXF7M8" target="_blank">
+                    <button class="buy-button">Buy on Amazon</button>
+                </a>
+            </div>
+            <div class="product">
+                <h4>iPhone 13</h4>
+                <p><strong>Price:</strong> $799.99</p>
+                <p><strong>Sales:</strong> 550 units</p>
+                <a href="https://www.amazon.in/s?k=iPhone+13&crid=RL63K640IH61&sprefix=iphone+13%2Caps%2C260&ref=nb_sb_noss_2" target="_blank">
+                    <button class="buy-button">Buy on Amazon</button>
+                </a>
+            </div>
+        </div>
+
+        <h3>Quick Links</h3>
+        <ul class="quick-links">
+            <li><a href="{{ url_for('view_products') }}">View Products</a></li>
+            <li><a href="{{ url_for('add_products') }}">Add New Product</a></li>
+            <li><a href="{{ url_for('high_selling') }}">High-Selling Products</a></li>
+            
+        </ul>
+
+
+    </div>
+    <div id="chatbot-icon" onclick="toggleChatbot()">
+        <i class="fas fa-comment-alt"></i>
+    </div>
+    
+    <div id="chatbot-container">
+        <div id="chatbot-header" onclick="toggleChatbot()">Chatbot</div>
+        <div id="chatbot-messages">
+            <div>Welcome! How can I assist you today?</div>
+        </div>
+        <div id="chatbot-input-container">
+            <input type="text" id="chatbot-input" placeholder="Type your message..." />
+            <button id="chatbot-send">Send</button>
+        </div>
+    </div>
+    
+    <script>
+        
+        // Toggle profile menu
+        document.getElementById('profile-menu-toggle').addEventListener('click', function () {
+            const menu = document.getElementById('profile-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Toggle chatbot visibility
+        const chatbotIcon = document.getElementById('chatbot-icon');
+        const chatbotContainer = document.getElementById('chatbot-container');
+        chatbotIcon.addEventListener('click', function () {
+            chatbotContainer.style.display = chatbotContainer.style.display === 'flex' ? 'none' : 'flex';
+        });
+    
+        // Send chatbot message and handle user input
+        document.getElementById('chatbot-send').addEventListener('click', function () {
+            const input = document.getElementById('chatbot-input');
+            const messages = document.getElementById('chatbot-messages');
+            if (input.value.trim() !== '') {
+                const userMessage = document.createElement('div');
+                userMessage.className = 'user-message';
+                userMessage.textContent = input.value;
+                messages.appendChild(userMessage);
+    
+                // Send the user query to the backend and receive the bot's response
+                fetch('/chatbot', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query: input.value })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'bot-message';
+                    botMessage.textContent = data.response;
+                    messages.appendChild(botMessage);
+    
+                    // Scroll to the latest message
+                    messages.scrollTop = messages.scrollHeight;
+                });
+    
+                input.value = '';
+            }
+        });
+    </script>
+    
+</body>
+</html>
